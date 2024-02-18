@@ -9,18 +9,18 @@ Let’s code a Snake game! The snake eats and grows, how big will it get before 
 
 First Download the [Snake Game Code](SnakeGame_LF.zip), and open the project, where you’ll have:
 
-1. **Questions:** The logic behind the snake itself🐍consists of two files: snake.h and snake.c.  
-    The snake.h file already contains the function declarations, you’re task is to fill in the .c.
+1. **Questions:** The logic behind the snake itself🐍consists of two files: `snake.h` and `snake.c`.  
+    The `snake.h` file already contains the function declarations, you’re task is to fill in the `snake.c`.
 
 2. **Tests**: (Almost) As usual.  
     You would like to test your code after every step.  
     (I’ll be explicit here: once you implemented a function, run the relevant unit tests and see if they pass, don’t move on as long as you didn’t finish with the current function)  
     Hence you have several test suites. Every test suite is located in a separate file.  
-    Open Evaluator.c. You will see that the different unit test suites are imported with `IMPORT_TESTS` macro and run with `RUN_TESTS` macro.  
-    Every time you reach a step below, uncomment the relevant `RUN_TESTS` lines in the main() function.  
+    Open `Evaluator.c`. You will see that the different unit test suites are imported with `IMPORT_TESTS` macro and run with `RUN_TESTS` macro.  
+    Every time you reach a step below, uncomment the relevant `RUN_TESTS` lines in the `main()` function.  
     This way, you gradually enable the required tests as you go. 
 
-3. After you finish with all of the unit tests, you'll be able to leave just the last one: run_`snake_t`est (that actually runs the game instead of testing)
+3. After you finish with all the unit tests, you'll be able to leave just the last one: `run_snake_t`est (that actually runs the game instead of testing)
 
 ## **Step 1: The birth of a snake**
 
@@ -34,8 +34,8 @@ uint8_t ** create_snake(uint8_t x, uint8_t y);
 // Free snake’s memory (remember: it’s a double pointer array!)  
 void free_snake(uint8_t ** snake, size_t snake_size);
 ```
-**  
-Step 2: Where to crawl**
+
+## **Step 2: Where to crawl**
 
 At any given moment, the snake can move (or grow) in one of four directions `{UP, DOWN, LEFT, RIGHT}`;  
 Hence I defined an enum to hold the possible directions.  
@@ -95,14 +95,11 @@ As before, this function is testable. So go ahead and take a look at `move_snake
 ## **Step 5: Improving the moving around test**
 
 If you look inside `move_snake_test`, you’ll find several “empty” unit tests. Those unit tests are waiting for you:
-
-Read the instructions below regarding the auxiliary functions, and then
-
-add unit tests to test the following initial snake positions (not just a single coordinate):
+Read the instructions below regarding the auxiliary functions, and then add unit tests to test the following initial snake positions (not just a single coordinate):
 
 ![img_1.png](img_1.png)
 
-For writing those unit tests, you will use two auxiliary functions located at snake.c (already implemented)
+For writing those unit tests, you will use two auxiliary functions located at `snake.c` (already implemented)
 
 ### **First auxiliary function: `create_long_snake`:**
 ```c
@@ -122,10 +119,10 @@ snake_t = create_long_snake(10,10, growth_directions, num_growth_directions);
 
 ![img_3.png](img_3.png)
 
-**Note:** create_long_snake uses `grow_snake`, a function that you implemented. We know that `grow_snake` works – you tested it with the unit tests of `grow_snake_test`.  
-However, who says that create_long_snake works? Maybe some bug sneaked in? Hence, please make sure `create_long_snake_test`  passes before moving on.
+**Note:** `create_long_snake` uses `grow_snake`, a function that you implemented. We know that `grow_snake` works – you tested it with the unit tests of `grow_snake_test`.  
+However, who says that `create_long_snake` works? Maybe some bug sneaked in? Hence, please make sure `create_long_snake_test`  passes before moving on.
 
-### **Second auxiliary function: are_snakes_equal:**
+### **Second auxiliary function: `are_snakes_equal`:**
 ```c
 // Returns true if snakes are of the same length and have exactly  
 // the same coordinates in every link.  
@@ -135,14 +132,14 @@ This function of course has a unit test. Its unit tests use `create_long_snake`�
 So, now you should enable `are_snakes_equal_test` and verify it works  
 (Isn't that great? We just build our code step by step, each time relying on something we know that works !)
 
-### **Back to testing move_snake:**
+### **Back to testing `move_snake`:**
 
 Add the required tests to `move_sanke_test` by utilizing `create_long_snake` and `are_snakes_equal` for creating and verifying the snake shapes described in the drawing above :)
 
 
 ## **Step 6: Eating. How will it grow if it won’t eat?!**
 
-Food takes a single coordinate on the screen. So, food is a one-dimensional array of size 2: uint8_t food[2] = {x, y}.
+Food takes a single coordinate on the screen. So, food is a one-dimensional array of size 2: `uint8_t food[2] = {x, y}`.
 
 Implement a function that checks if the snake will reach the food on the next move:
 ```c
@@ -154,7 +151,7 @@ _Remember, food is always of size 2, so there’s no need to get its size as inp
 
 Of course, test your function in `snake_reaches_food_test`, for the following situations, and see if they pass!
 
-![img_4.png](img_4.png)
+<img src="img_4.png" alt="img_5" width="400" height="400">
 
 ## **Step 7: Drawing**
 
@@ -185,7 +182,7 @@ void draw_snake(snake_t snake, size_t snake_size)
 void clear_snake(snake_t snake, size_t snake_size)  
 void draw_food(uint8_t * food)
 ```
-Those functions do not have unit tests. You can check if they work by enabling the `run_snake_test` at Evaluator.c.
+Those functions do not have unit tests. You can check if they work by enabling the `run_snake_test` at `Evaluator.c`.
 
 ## **Step 8: Setting a new food location**
 
@@ -199,7 +196,7 @@ void set_new_food_location(snake_t snake, size_t snake_size, uint8_t food[2]);
 ```c
 bool is_food_on_snake(snake_t snake, size_t snake_size, uint8_t food[2]);
 ```
-###### Use this auxiliary function inside set_new_food_location to check if If the function returns true – set a new location for the food... And so on...
+###### Use this auxiliary function inside set_new_food_location to check if is the function returns true – set a new location for the food... And so on...
 
 ## **Step 9: Loosing**
 
@@ -208,14 +205,14 @@ We need to test when the snake bumps into walls or into itself.
 Let's start with bumping into itself:
 ```c
 // Returns true if snakes will bump into itself after a single move in // the given direction.  
-bool will_snake_collide_with_itself_on_next_move(`snake_t` snake, size_t snake_size, direction_t direction);
+bool will_snake_collide_with_itself_on_next_move(snake_t snake, size_t snake_size, direction_t direction);
 ```
 Of course, we must test it! Please enable `collision_with_itself_test`.
 
 You can modify the test to try and cover other scenarios.  
 you don’t have to test cases that shouldn’t occur in reality, like this:
 
-![img_5.png](img_5.png)
+<img src="img_5.png" alt="img_5" width="300" height="300">
 
 Now let's add checks of collision with walls.
 
@@ -247,7 +244,7 @@ bool can_snake_move_in_direction(direction_t current_direction, direction_t requ
 
 ## **Step 10: Have fun**
 
-**Running The Game:** Finally, at Evaluator.c, uncomment the `run_snake_test` suite and comment out the others to run the game😊
+**Running The Game:** Finally, at `Evaluator.c`, uncomment the `run_snake_test` suite and comment out the others to run the game😊
 
 ## Requested files
 
